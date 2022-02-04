@@ -13,8 +13,8 @@ def int_array_to_bytes(int_array):
 # After keyboard input, returns a test array of integers [0,15]
 def get_int_array():
     inp = input('press any key to send')
-    
-    return [n for n in range(16)]
+    array = [n for n in range(16)]
+    return [-32768,32767,-6,30,200,2000,6,-9,2,8,10,300,385,1,1,1]
 
 # Gets message in characters and fills remaining with 0s
 def get_message():
@@ -47,6 +47,10 @@ while True:
     integer_array = get_int_array()
     sendMessage = int_array_to_bytes(integer_array)
     print(len(sendMessage))
+    #prevent sending messages longer than 32 bytes
+    if (len(sendMessage) > 32):
+        print("Can't send message longer than 32 bytes")
+        continue
     start = time.time()      #start the time for checking delivery time
     radio.write(sendMessage)   # just write the message to radio
     print("Sent the message: {}".format(sendMessage))  # print a message after succesfull send
