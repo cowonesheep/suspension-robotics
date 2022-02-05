@@ -2,13 +2,16 @@
 #include <Wire.h>                             // i2c libary fro 16x2 lcd display
 #include<RF24.h>                  // nrf library
 
+
 // Arduino identifier
 #define ME 1
+
 // Helper macro to merge bytes
 #define TO_INT16(a,b) (((b)<<8)|(a))
 #define TO_INT32(a,b,c,d) (((d)<<24)|((c)<<16)|((b)<<8)|(a))
 
 RF24 radio(9, 10) ;  // ce, csn pins
+
 
 //RGB LEDs are connected to these pins
 int RedPin = 3;
@@ -27,6 +30,7 @@ void setup() {
   radio.enableDynamicPayloads() ;
   radio.powerUp() ;
   Wire.begin();                 //start i2c address
+
   if (! radio.isChipConnected()) { //sanity check
     Serial.println("Warning: RF chip isn't connected!");
   }
@@ -142,3 +146,4 @@ void yellow () {
 bool messageForMe(int message[]) {
   return message[0] == ME;
 }
+

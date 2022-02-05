@@ -12,9 +12,16 @@ def int_array_to_bytes(int_array):
 
 # After keyboard input, returns a test array of integers [0,15]
 def get_int_array():
-    inp = input('press any key to send')
-    array = [n for n in range(16)]
-    return [-32768,32767,-6,30,200,2000,6,-9,2,8,10,300,385,1,1,1]
+
+    inp = input('Test format: [g/b for good or bad][# arduino]')
+    if (len(inp) != 2 or (inp[0] != 'g' and inp[0] != 'b') or (not inp[1].isnumeric())):
+        #bad input
+        return [0 for n in range(40)]
+    array = [1, 244, 355, 66, 123, -90, -100, 10, 3, 0, 0, 0, 0, 0, 0, 0]
+    if inp[0] == 'b':
+        array[2] = 4;#replace an int
+    array[0] = int(inp[1])
+    return array
 
 # Gets message in characters and fills remaining with 0s
 def get_message():
