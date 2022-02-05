@@ -12,6 +12,7 @@ def int_array_to_bytes(int_array):
 
 # After keyboard input, returns a test array of integers [0,15]
 def get_int_array():
+
     inp = input('Test format: [g/b for good or bad][# arduino]')
     if (len(inp) != 2 or (inp[0] != 'g' and inp[0] != 'b') or (not inp[1].isnumeric())):
         #bad input
