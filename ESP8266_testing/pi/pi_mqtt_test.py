@@ -4,6 +4,7 @@ Thomas Varnish (https://github.com/tvarnish), (https://www.instructables.com/mem
 Written for my Instructable - "How to use MQTT with the Raspberry Pi and ESP8266"
 """
 import paho.mqtt.client as mqtt
+import time
 
 # Don't forget to change the variables for the MQTT broker!
 mqtt_topic = "Your Topic"
@@ -55,5 +56,23 @@ client.on_publish = on_publish
 client.connect(mqtt_broker_ip, 1883)
 
 # Once we have told the client to connect, let the client object run itself
-client.loop_forever()
-client.disconnect()
+#client.loop_forever()
+client.loop_start()
+while Connected != True:    #Wait for connection
+    time.sleep(0.1)
+ 
+try:
+    while True:
+ 
+        value = raw_input('Enter the message:')
+        result = client.publish(mqtt_topic,value)
+        status = result[0]
+        if status == 0:
+             print(f"Send `{value}` to topic `{mqtt_topic}`")
+         else:
+             print(f"Failed to send message to topic {mqtt_topic}")
+ 
+except KeyboardInterrupt:
+ 
+    client.disconnect()
+    client.loop_stop()
